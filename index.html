@@ -3,272 +3,246 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Riehen — North & South</title>
-  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;600&family=Source+Sans+3:wght@300;400;500&display=swap" rel="stylesheet" />
+  <title>North vs South — Riehen</title>
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,600;1,400&family=Source+Sans+3:wght@300;400;500&display=swap" rel="stylesheet" />
   <style>
     *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
-
-    body {
-      font-family: 'Source Sans 3', sans-serif;
-      background: #f5f4ef;
-      color: #2c2c2a;
+    :root {
+      --north: #1D9E75;
+      --north-light: #E1F5EE;
+      --north-dark: #04342C;
+      --south: #7F77DD;
+      --south-light: #EEEDFE;
+      --south-dark: #26215C;
+      --gray: #f5f4ef;
+      --border: #d3d1c7;
+      --text: #2c2c2a;
+      --muted: #5f5e5a;
+      --hint: #888780;
     }
+    html { scroll-behavior: smooth; }
+    body { font-family: 'Source Sans 3', sans-serif; background: var(--gray); color: var(--text); overflow-x: hidden; }
 
-    header {
-      text-align: center;
-      padding: 4rem 1rem 2rem;
+    nav {
+      position: fixed; top: 0; left: 0; right: 0; z-index: 100;
+      display: flex; align-items: center; justify-content: space-between;
+      padding: 1.1rem 2.5rem;
+      background: rgba(245,244,239,0.88);
+      backdrop-filter: blur(12px);
+      border-bottom: 0.5px solid var(--border);
     }
-
-    header .municipality {
-      font-size: 11px;
-      letter-spacing: 0.12em;
-      text-transform: uppercase;
-      color: #888780;
-      font-weight: 500;
-      margin-bottom: 0.75rem;
-    }
-
-    header h1 {
-      font-family: 'Playfair Display', serif;
-      font-size: 3rem;
-      font-weight: 600;
-      color: #2c2c2a;
-      line-height: 1.1;
-    }
-
-    header p {
-      margin-top: 1rem;
-      font-size: 15px;
-      color: #5f5e5a;
-      max-width: 480px;
-      margin-left: auto;
-      margin-right: auto;
-      line-height: 1.7;
-    }
+    .nav-logo { font-family: 'Playfair Display', serif; font-size: 1rem; font-weight: 600; color: var(--text); text-decoration: none; }
+    .nav-links { display: flex; gap: 2rem; list-style: none; }
+    .nav-links a { font-size: 12px; font-weight: 500; color: var(--muted); text-decoration: none; letter-spacing: 0.06em; text-transform: uppercase; transition: color 0.2s; }
+    .nav-links a:hover { color: var(--text); }
 
     .hero {
-      display: grid;
-      grid-template-columns: 1fr 1fr;
-      max-width: 900px;
-      margin: 2rem auto;
-      border-radius: 16px;
-      overflow: hidden;
-      border: 0.5px solid #d3d1c7;
+      position: relative; height: 100vh; min-height: 600px;
+      display: flex; align-items: flex-end; justify-content: center; overflow: hidden;
     }
-
-    .side {
-      padding: 2.5rem 2rem;
-      display: flex;
-      flex-direction: column;
-      gap: 1rem;
+    .hero-img { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; object-position: center; }
+    .hero-overlay {
+      position: absolute; inset: 0;
+      background: linear-gradient(to bottom, rgba(0,0,0,0.08) 0%, rgba(0,0,0,0.1) 40%, rgba(0,0,0,0.68) 100%);
     }
-
-    .north { background: #E1F5EE; }
-    .south { background: #EEEDFE; border-left: 0.5px solid #d3d1c7; }
-
-    .label {
-      font-size: 11px;
-      letter-spacing: 0.12em;
-      text-transform: uppercase;
-      font-weight: 500;
+    .hero-content { position: relative; z-index: 2; text-align: center; padding: 0 1rem 5.5rem; max-width: 720px; }
+    .hero-eyebrow { font-size: 11px; letter-spacing: 0.2em; text-transform: uppercase; color: rgba(255,255,255,0.65); font-weight: 500; margin-bottom: 1rem; }
+    .hero-title { font-family: 'Playfair Display', serif; font-size: clamp(2.8rem, 7vw, 5rem); font-weight: 600; color: #fff; line-height: 1.05; margin-bottom: 1.25rem; }
+    .hero-title em { font-style: italic; font-weight: 400; }
+    .hero-sub { font-size: 15px; color: rgba(255,255,255,0.7); line-height: 1.7; max-width: 400px; margin: 0 auto 2rem; }
+    .hero-cta {
+      display: inline-flex; align-items: center; gap: 8px;
+      font-size: 12px; letter-spacing: 0.1em; text-transform: uppercase;
+      color: rgba(255,255,255,0.65); text-decoration: none;
+      border: 0.5px solid rgba(255,255,255,0.3); padding: 10px 22px; border-radius: 30px;
+      transition: all 0.25s;
     }
-    .north .label { color: #0F6E56; }
-    .south .label { color: #534AB7; }
+    .hero-cta:hover { background: rgba(255,255,255,0.1); color: #fff; border-color: rgba(255,255,255,0.5); }
 
-    .side h2 {
-      font-family: 'Playfair Display', serif;
-      font-size: 2rem;
-      font-weight: 600;
-      line-height: 1.15;
-    }
-    .north h2 { color: #04342C; }
-    .south h2 { color: #26215C; }
+    section { padding: 5rem 1.5rem; }
+    .container { max-width: 900px; margin: 0 auto; }
+    .section-label { font-size: 11px; letter-spacing: 0.15em; text-transform: uppercase; color: var(--hint); font-weight: 500; margin-bottom: 0.6rem; }
+    .section-title { font-family: 'Playfair Display', serif; font-size: clamp(1.7rem, 4vw, 2.5rem); font-weight: 600; color: var(--text); line-height: 1.2; margin-bottom: 0.9rem; }
+    .section-intro { font-size: 15px; color: var(--muted); line-height: 1.75; max-width: 540px; margin-bottom: 3rem; }
 
-    .divider {
-      width: 32px;
-      height: 2px;
-      border-radius: 2px;
-    }
-    .north .divider { background: #1D9E75; }
-    .south .divider { background: #7F77DD; }
+    .split { display: grid; grid-template-columns: 1fr 1fr; border-radius: 16px; overflow: hidden; border: 0.5px solid var(--border); }
+    .split-side { padding: 2.5rem 2rem; display: flex; flex-direction: column; gap: 1rem; }
+    .split-north { background: var(--north-light); }
+    .split-south { background: var(--south-light); border-left: 0.5px solid var(--border); }
+    .side-label { font-size: 11px; letter-spacing: 0.12em; text-transform: uppercase; font-weight: 500; }
+    .split-north .side-label { color: #0F6E56; }
+    .split-south .side-label { color: #534AB7; }
+    .split-side h3 { font-family: 'Playfair Display', serif; font-size: 1.7rem; font-weight: 600; line-height: 1.15; }
+    .split-north h3 { color: var(--north-dark); }
+    .split-south h3 { color: var(--south-dark); }
+    .side-divider { width: 28px; height: 2px; border-radius: 2px; }
+    .split-north .side-divider { background: var(--north); }
+    .split-south .side-divider { background: var(--south); }
+    .split-side p { font-size: 14px; line-height: 1.75; color: #444441; }
+    .tags { display: flex; flex-wrap: wrap; gap: 6px; margin-top: auto; padding-top: 0.5rem; }
+    .tag { font-size: 11px; padding: 4px 10px; border-radius: 20px; font-weight: 500; }
+    .split-north .tag { background: #9FE1CB; color: #085041; }
+    .split-south .tag { background: #CECBF6; color: #3C3489; }
 
-    .side p {
-      font-size: 14px;
-      line-height: 1.75;
-      color: #444441;
-    }
+    .stats-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 12px; margin-top: 2rem; }
+    .stat-card { padding: 1.25rem; background: #fff; border-radius: 10px; border: 0.5px solid var(--border); }
+    .stat-dot { width: 8px; height: 8px; border-radius: 50%; display: inline-block; margin-right: 5px; vertical-align: middle; }
+    .dot-n { background: var(--north); }
+    .dot-s { background: var(--south); }
+    .stat-label { font-size: 11px; color: var(--hint); margin-bottom: 5px; }
+    .stat-val { font-size: 13px; font-weight: 500; color: var(--text); line-height: 1.4; }
 
-    .tags {
-      display: flex;
-      flex-wrap: wrap;
-      gap: 6px;
-      margin-top: auto;
-      padding-top: 0.5rem;
+    .map-placeholder {
+      background: #fff; border: 0.5px solid var(--border); border-radius: 16px;
+      height: 400px; display: flex; flex-direction: column;
+      align-items: center; justify-content: center; gap: 1rem; text-align: center; padding: 2rem;
     }
-
-    .tag {
-      font-size: 11px;
-      padding: 4px 10px;
-      border-radius: 20px;
-      font-weight: 500;
-    }
-    .north .tag { background: #9FE1CB; color: #085041; }
-    .south .tag { background: #CECBF6; color: #3C3489; }
-
-    .stats {
-      display: grid;
-      grid-template-columns: 1fr 1fr;
-      gap: 12px;
-      max-width: 900px;
-      margin: 0 auto 2rem;
-      padding: 0 1rem;
-    }
-
-    .stat {
-      padding: 1rem 1.25rem;
-      background: #fff;
-      border-radius: 10px;
-      border: 0.5px solid #d3d1c7;
-    }
-
-    .stat-label {
-      font-size: 11px;
-      color: #888780;
-      margin-bottom: 4px;
-      display: flex;
-      align-items: center;
-      gap: 6px;
-    }
-
-    .dot {
-      width: 8px;
-      height: 8px;
-      border-radius: 50%;
-      display: inline-block;
-    }
-    .dot-north { background: #1D9E75; }
-    .dot-south { background: #7F77DD; }
-
-    .stat-val {
-      font-size: 14px;
-      font-weight: 500;
-      color: #2c2c2a;
-    }
+    .map-icon { width: 52px; height: 52px; border-radius: 50%; background: var(--gray); border: 0.5px solid var(--border); display: flex; align-items: center; justify-content: center; font-size: 22px; }
+    .map-placeholder h3 { font-family: 'Playfair Display', serif; font-size: 1.2rem; color: var(--text); }
+    .map-placeholder p { font-size: 13px; color: var(--muted); max-width: 320px; line-height: 1.65; }
+    .map-badge { font-size: 11px; padding: 4px 12px; border-radius: 20px; background: var(--gray); border: 0.5px solid var(--border); color: var(--hint); font-weight: 500; }
 
     .verdict {
-      max-width: 900px;
-      margin: 0 auto 4rem;
-      padding: 1.5rem 2rem;
-      background: #fff;
-      border-radius: 16px;
-      border: 0.5px solid #d3d1c7;
+      background: #fff; border-radius: 16px; border: 0.5px solid var(--border);
+      padding: 2.5rem; display: grid; grid-template-columns: 220px 0.5px 1fr; gap: 2.5rem; align-items: start;
     }
+    .verdict-divider { background: var(--border); align-self: stretch; }
+    .winner-badge { display: inline-block; font-size: 11px; font-weight: 500; padding: 4px 12px; border-radius: 20px; background: #9FE1CB; color: #085041; margin-bottom: 1rem; }
+    .verdict-left h3 { font-family: 'Playfair Display', serif; font-size: 1.4rem; font-weight: 600; color: var(--text); line-height: 1.25; }
+    .verdict-right p { font-size: 15px; color: var(--muted); line-height: 1.8; }
 
-    .winner-badge {
-      display: inline-block;
-      font-size: 11px;
-      font-weight: 500;
-      padding: 3px 10px;
-      border-radius: 20px;
-      background: #9FE1CB;
-      color: #085041;
-      margin-bottom: 0.75rem;
-    }
+    .sep { max-width: 900px; margin: 0 auto; height: 0.5px; background: var(--border); }
 
-    .verdict h3 {
-      font-family: 'Playfair Display', serif;
-      font-size: 1.2rem;
-      font-weight: 600;
-      color: #2c2c2a;
-      margin-bottom: 0.5rem;
-    }
+    footer { text-align: center; padding: 3rem 1.5rem; border-top: 0.5px solid var(--border); background: #fff; }
+    .footer-logo { font-family: 'Playfair Display', serif; font-size: 1.1rem; font-weight: 600; color: var(--text); margin-bottom: 0.5rem; }
+    footer p { font-size: 12px; color: var(--hint); line-height: 1.7; }
 
-    .verdict p {
-      font-size: 14px;
-      color: #5f5e5a;
-      line-height: 1.7;
-    }
-
-    footer {
-      text-align: center;
-      padding: 2rem;
-      font-size: 12px;
-      color: #888780;
-      border-top: 0.5px solid #d3d1c7;
-    }
-
-    @media (max-width: 600px) {
-      .hero { grid-template-columns: 1fr; }
-      .south { border-left: none; border-top: 0.5px solid #d3d1c7; }
-      header h1 { font-size: 2rem; }
-      .stats { grid-template-columns: 1fr; }
+    @media (max-width: 700px) {
+      nav { padding: 1rem 1.25rem; }
+      .nav-links { gap: 1.25rem; }
+      .split { grid-template-columns: 1fr; }
+      .split-south { border-left: none; border-top: 0.5px solid var(--border); }
+      .stats-grid { grid-template-columns: 1fr 1fr; }
+      .verdict { grid-template-columns: 1fr; gap: 1.5rem; }
+      .verdict-divider { display: none; }
     }
   </style>
 </head>
 <body>
 
-  <header>
-    <p class="municipality">Municipality 4125 · Basel-Stadt · Switzerland</p>
-    <h1>Riehen</h1>
-    <p>A small, niche municipality just outside Basel — best kept slightly forgotten.</p>
-  </header>
+  <nav>
+    <a href="#" class="nav-logo">Riehen 4125</a>
+    <ul class="nav-links">
+      <li><a href="#overview">Overview</a></li>
+      <li><a href="#map">Map</a></li>
+      <li><a href="#verdict">Verdict</a></li>
+    </ul>
+  </nav>
 
   <div class="hero">
-    <div class="side north">
-      <span class="label">North Riehen</span>
-      <h2>Vineyards,<br>forest &<br>border land</h2>
-      <div class="divider"></div>
-      <p>Rolling vineyards crossing into Germany, the Herrenwald forest, the quirky Eiserne Hand border protrusion, and hiking trails that straddle two countries. Rural, quiet, and genuinely its own place.</p>
-      <div class="tags">
-        <span class="tag">Eiserne Hand</span>
-        <span class="tag">St. Chrischona</span>
-        <span class="tag">Wenkenhof</span>
-        <span class="tag">Markgräfler Wiiwegli</span>
-        <span class="tag">Herrenwald</span>
-        <span class="tag">Hintere Gärten</span>
-      </div>
-    </div>
-    <div class="side south">
-      <span class="label">South Riehen</span>
-      <h2>River walk,<br>tram stops<br>& suburbs</h2>
-      <div class="divider"></div>
-      <p>The Wiese River promenade, leafy residential streets, and quick tram access into Basel. Pleasant and livable, but more of a gateway to the city than a destination in itself.</p>
-      <div class="tags">
-        <span class="tag">Wiesendamm</span>
-        <span class="tag">Tram 6</span>
-        <span class="tag">Hirzbrunnen border</span>
-        <span class="tag">Residential</span>
-      </div>
+    <img class="hero-img" src="https://plain-weur-prod-public.komododecks.com/202605/06/5d3GWm7iWIFfAxzNlfBt/image.jpg" alt="Riehen aerial view" />
+    <div class="hero-overlay"></div>
+    <div class="hero-content">
+      <p class="hero-eyebrow">Municipality 4125 · Basel-Stadt · Switzerland</p>
+      <h1 class="hero-title">North <em>vs</em> South<br>Side Riehen</h1>
+      <p class="hero-sub">A quiet municipality just outside Basel — but its two sides tell very different stories.</p>
+      <a href="#overview" class="hero-cta">Explore ↓</a>
     </div>
   </div>
 
-  <div class="stats">
-    <div class="stat">
-      <p class="stat-label"><span class="dot dot-north"></span> North character</p>
-      <p class="stat-val">Rural village · Niche · Explorable</p>
+  <section id="overview">
+    <div class="container">
+      <p class="section-label">The two sides</p>
+      <h2 class="section-title">Same postcode,<br>different worlds</h2>
+      <p class="section-intro">Both carry the 4125 postcode, but north and south Riehen have entirely different characters. One feels like a village that forgot to become a suburb. The other didn't.</p>
+      <div class="split">
+        <div class="split-side split-north">
+          <span class="side-label">North Riehen</span>
+          <h3>Vineyards,<br>forest &<br>border land</h3>
+          <div class="side-divider"></div>
+          <p>Rolling vineyards crossing into Germany, the Herrenwald forest, the quirky Eiserne Hand border protrusion, and hiking trails that straddle two countries. Rural, quiet, and genuinely its own place.</p>
+          <div class="tags">
+            <span class="tag">Eiserne Hand</span>
+            <span class="tag">St. Chrischona</span>
+            <span class="tag">Wenkenhof</span>
+            <span class="tag">Markgräfler Wiiwegli</span>
+            <span class="tag">Herrenwald</span>
+            <span class="tag">Hintere Gärten</span>
+          </div>
+        </div>
+        <div class="split-side split-south">
+          <span class="side-label">South Riehen</span>
+          <h3>River walk,<br>tram stops<br>&amp; suburbs</h3>
+          <div class="side-divider"></div>
+          <p>The Wiese River promenade, leafy residential streets, and quick tram access into Basel. Pleasant and livable, but more of a gateway to the city than a destination in itself.</p>
+          <div class="tags">
+            <span class="tag">Wiesendamm</span>
+            <span class="tag">Tram 6</span>
+            <span class="tag">Hirzbrunnen border</span>
+            <span class="tag">Residential</span>
+          </div>
+        </div>
+      </div>
+      <div class="stats-grid">
+        <div class="stat-card">
+          <p class="stat-label"><span class="stat-dot dot-n"></span>North character</p>
+          <p class="stat-val">Rural · Niche · Explorable</p>
+        </div>
+        <div class="stat-card">
+          <p class="stat-label"><span class="stat-dot dot-s"></span>South character</p>
+          <p class="stat-val">Suburban · Accessible · Transitional</p>
+        </div>
+        <div class="stat-card">
+          <p class="stat-label"><span class="stat-dot dot-n"></span>Best for</p>
+          <p class="stat-val">Wandering, hiking, escaping</p>
+        </div>
+        <div class="stat-card">
+          <p class="stat-label"><span class="stat-dot dot-s"></span>Best for</p>
+          <p class="stat-val">Commuting, daily life, families</p>
+        </div>
+      </div>
     </div>
-    <div class="stat">
-      <p class="stat-label"><span class="dot dot-south"></span> South character</p>
-      <p class="stat-val">Suburban · Accessible · Transitional</p>
-    </div>
-    <div class="stat">
-      <p class="stat-label"><span class="dot dot-north"></span> Best for</p>
-      <p class="stat-val">Wandering, hiking, escaping</p>
-    </div>
-    <div class="stat">
-      <p class="stat-label"><span class="dot dot-south"></span> Best for</p>
-      <p class="stat-val">Commuting, daily life, families</p>
-    </div>
-  </div>
+  </section>
 
-  <div class="verdict" style="margin-left:1rem;margin-right:1rem;">
-    <span class="winner-badge">Winner: North</span>
-    <h3>The niche side wins</h3>
-    <p>North 4125 has genuine identity — a place you explore, not pass through. The vineyards, border stones, and forest make it rare for a municipality this close to a major city. South 4125 is pleasant, but dissolves quietly into Basel. Riehen is best when it stays small, rural, and slightly forgotten.</p>
-  </div>
+  <div class="sep"></div>
+
+  <section id="map">
+    <div class="container">
+      <p class="section-label">The divide</p>
+      <h2 class="section-title">Where North ends<br>and South begins</h2>
+      <p class="section-intro">The map below will show exactly how the two sides are divided. Coming soon once the Google My Maps zone is ready.</p>
+      <div class="map-placeholder">
+        <div class="map-icon">🗺</div>
+        <h3>Map coming soon</h3>
+        <p>The North and South zones of Riehen 4125 will be drawn here — showing the boundary, landmarks, and what makes each side distinct.</p>
+        <span class="map-badge">In progress</span>
+      </div>
+    </div>
+  </section>
+
+  <div class="sep"></div>
+
+  <section id="verdict">
+    <div class="container">
+      <p class="section-label">The verdict</p>
+      <h2 class="section-title">So which side wins?</h2>
+      <p class="section-intro">Stripping away shared parks and border zones — looking only at 4125 itself.</p>
+      <div class="verdict">
+        <div class="verdict-left">
+          <span class="winner-badge">Winner: North</span>
+          <h3>The niche side wins</h3>
+        </div>
+        <div class="verdict-divider"></div>
+        <div class="verdict-right">
+          <p>North 4125 has genuine identity — a place you explore, not pass through. The vineyards, border stones, St. Chrischona, and the Herrenwald make it rare for a municipality this close to a major city. South 4125 is pleasant, but quietly dissolves into Basel. Riehen is best when it stays small, rural, and slightly forgotten — and that's the north.</p>
+        </div>
+      </div>
+    </div>
+  </section>
 
   <footer>
-    Riehen · 4125 · Basel-Stadt · Switzerland
+    <p class="footer-logo">Riehen 4125</p>
+    <p>Basel-Stadt · Switzerland<br>A niche municipality, best kept slightly forgotten.</p>
   </footer>
 
 </body>
