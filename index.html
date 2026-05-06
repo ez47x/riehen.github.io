@@ -1,9 +1,275 @@
 <!DOCTYPE html>
-<html>
-  <head>
-    <title>My Website</title>
-  </head>
-  <body>
-    <h1>Hello World!</h1>
-  </body>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Riehen — North & South</title>
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;600&family=Source+Sans+3:wght@300;400;500&display=swap" rel="stylesheet" />
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    body {
+      font-family: 'Source Sans 3', sans-serif;
+      background: #f5f4ef;
+      color: #2c2c2a;
+    }
+
+    header {
+      text-align: center;
+      padding: 4rem 1rem 2rem;
+    }
+
+    header .municipality {
+      font-size: 11px;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      color: #888780;
+      font-weight: 500;
+      margin-bottom: 0.75rem;
+    }
+
+    header h1 {
+      font-family: 'Playfair Display', serif;
+      font-size: 3rem;
+      font-weight: 600;
+      color: #2c2c2a;
+      line-height: 1.1;
+    }
+
+    header p {
+      margin-top: 1rem;
+      font-size: 15px;
+      color: #5f5e5a;
+      max-width: 480px;
+      margin-left: auto;
+      margin-right: auto;
+      line-height: 1.7;
+    }
+
+    .hero {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      max-width: 900px;
+      margin: 2rem auto;
+      border-radius: 16px;
+      overflow: hidden;
+      border: 0.5px solid #d3d1c7;
+    }
+
+    .side {
+      padding: 2.5rem 2rem;
+      display: flex;
+      flex-direction: column;
+      gap: 1rem;
+    }
+
+    .north { background: #E1F5EE; }
+    .south { background: #EEEDFE; border-left: 0.5px solid #d3d1c7; }
+
+    .label {
+      font-size: 11px;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      font-weight: 500;
+    }
+    .north .label { color: #0F6E56; }
+    .south .label { color: #534AB7; }
+
+    .side h2 {
+      font-family: 'Playfair Display', serif;
+      font-size: 2rem;
+      font-weight: 600;
+      line-height: 1.15;
+    }
+    .north h2 { color: #04342C; }
+    .south h2 { color: #26215C; }
+
+    .divider {
+      width: 32px;
+      height: 2px;
+      border-radius: 2px;
+    }
+    .north .divider { background: #1D9E75; }
+    .south .divider { background: #7F77DD; }
+
+    .side p {
+      font-size: 14px;
+      line-height: 1.75;
+      color: #444441;
+    }
+
+    .tags {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 6px;
+      margin-top: auto;
+      padding-top: 0.5rem;
+    }
+
+    .tag {
+      font-size: 11px;
+      padding: 4px 10px;
+      border-radius: 20px;
+      font-weight: 500;
+    }
+    .north .tag { background: #9FE1CB; color: #085041; }
+    .south .tag { background: #CECBF6; color: #3C3489; }
+
+    .stats {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 12px;
+      max-width: 900px;
+      margin: 0 auto 2rem;
+      padding: 0 1rem;
+    }
+
+    .stat {
+      padding: 1rem 1.25rem;
+      background: #fff;
+      border-radius: 10px;
+      border: 0.5px solid #d3d1c7;
+    }
+
+    .stat-label {
+      font-size: 11px;
+      color: #888780;
+      margin-bottom: 4px;
+      display: flex;
+      align-items: center;
+      gap: 6px;
+    }
+
+    .dot {
+      width: 8px;
+      height: 8px;
+      border-radius: 50%;
+      display: inline-block;
+    }
+    .dot-north { background: #1D9E75; }
+    .dot-south { background: #7F77DD; }
+
+    .stat-val {
+      font-size: 14px;
+      font-weight: 500;
+      color: #2c2c2a;
+    }
+
+    .verdict {
+      max-width: 900px;
+      margin: 0 auto 4rem;
+      padding: 1.5rem 2rem;
+      background: #fff;
+      border-radius: 16px;
+      border: 0.5px solid #d3d1c7;
+    }
+
+    .winner-badge {
+      display: inline-block;
+      font-size: 11px;
+      font-weight: 500;
+      padding: 3px 10px;
+      border-radius: 20px;
+      background: #9FE1CB;
+      color: #085041;
+      margin-bottom: 0.75rem;
+    }
+
+    .verdict h3 {
+      font-family: 'Playfair Display', serif;
+      font-size: 1.2rem;
+      font-weight: 600;
+      color: #2c2c2a;
+      margin-bottom: 0.5rem;
+    }
+
+    .verdict p {
+      font-size: 14px;
+      color: #5f5e5a;
+      line-height: 1.7;
+    }
+
+    footer {
+      text-align: center;
+      padding: 2rem;
+      font-size: 12px;
+      color: #888780;
+      border-top: 0.5px solid #d3d1c7;
+    }
+
+    @media (max-width: 600px) {
+      .hero { grid-template-columns: 1fr; }
+      .south { border-left: none; border-top: 0.5px solid #d3d1c7; }
+      header h1 { font-size: 2rem; }
+      .stats { grid-template-columns: 1fr; }
+    }
+  </style>
+</head>
+<body>
+
+  <header>
+    <p class="municipality">Municipality 4125 · Basel-Stadt · Switzerland</p>
+    <h1>Riehen</h1>
+    <p>A small, niche municipality just outside Basel — best kept slightly forgotten.</p>
+  </header>
+
+  <div class="hero">
+    <div class="side north">
+      <span class="label">North Riehen</span>
+      <h2>Vineyards,<br>forest &<br>border land</h2>
+      <div class="divider"></div>
+      <p>Rolling vineyards crossing into Germany, the Herrenwald forest, the quirky Eiserne Hand border protrusion, and hiking trails that straddle two countries. Rural, quiet, and genuinely its own place.</p>
+      <div class="tags">
+        <span class="tag">Eiserne Hand</span>
+        <span class="tag">St. Chrischona</span>
+        <span class="tag">Wenkenhof</span>
+        <span class="tag">Markgräfler Wiiwegli</span>
+        <span class="tag">Herrenwald</span>
+        <span class="tag">Hintere Gärten</span>
+      </div>
+    </div>
+    <div class="side south">
+      <span class="label">South Riehen</span>
+      <h2>River walk,<br>tram stops<br>& suburbs</h2>
+      <div class="divider"></div>
+      <p>The Wiese River promenade, leafy residential streets, and quick tram access into Basel. Pleasant and livable, but more of a gateway to the city than a destination in itself.</p>
+      <div class="tags">
+        <span class="tag">Wiesendamm</span>
+        <span class="tag">Tram 6</span>
+        <span class="tag">Hirzbrunnen border</span>
+        <span class="tag">Residential</span>
+      </div>
+    </div>
+  </div>
+
+  <div class="stats">
+    <div class="stat">
+      <p class="stat-label"><span class="dot dot-north"></span> North character</p>
+      <p class="stat-val">Rural village · Niche · Explorable</p>
+    </div>
+    <div class="stat">
+      <p class="stat-label"><span class="dot dot-south"></span> South character</p>
+      <p class="stat-val">Suburban · Accessible · Transitional</p>
+    </div>
+    <div class="stat">
+      <p class="stat-label"><span class="dot dot-north"></span> Best for</p>
+      <p class="stat-val">Wandering, hiking, escaping</p>
+    </div>
+    <div class="stat">
+      <p class="stat-label"><span class="dot dot-south"></span> Best for</p>
+      <p class="stat-val">Commuting, daily life, families</p>
+    </div>
+  </div>
+
+  <div class="verdict" style="margin-left:1rem;margin-right:1rem;">
+    <span class="winner-badge">Winner: North</span>
+    <h3>The niche side wins</h3>
+    <p>North 4125 has genuine identity — a place you explore, not pass through. The vineyards, border stones, and forest make it rare for a municipality this close to a major city. South 4125 is pleasant, but dissolves quietly into Basel. Riehen is best when it stays small, rural, and slightly forgotten.</p>
+  </div>
+
+  <footer>
+    Riehen · 4125 · Basel-Stadt · Switzerland
+  </footer>
+
+</body>
 </html>
